@@ -1,11 +1,25 @@
 <!doctype html>
+<!--
+  Vérelle® × Velvané
+  A Swiss design language by Velvané: https://website-checker-lmdx.vercel.app/
+  © 2026 Velvané. All rights reserved. Not for reuse without written permission.
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vérelle® — Studio für Gestaltung, Zürich</title>
-  <meta name="description" content="Vérelle is an independent Swiss design studio working on identities, editorial systems, and spaces, built on the grid.">
+  <title>Vérelle® × Velvané — Studio für Gestaltung</title>
+  <meta name="description" content="Vérelle is a Swiss design language by Velvané: identities, editorial systems and spaces, built on the grid.">
   <meta name="theme-color" content="#f4f3ef">
+  <meta name="author" content="Velvané">
+  <meta name="copyright" content="© 2026 Velvané. All rights reserved.">
+  <link rel="author" href="https://website-checker-lmdx.vercel.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Velvané">
+  <meta property="og:title" content="Vérelle® × Velvané">
+  <meta property="og:description" content="A Swiss design language by Velvané. Grid, type, reduction.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?auto=format&fit=crop&w=1200&h=630&q=80">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +30,22 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="is-loading">
+
+  <!-- Velvané wordmark (line-drawn), reused via <use> -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="vmark">
+        <path d="M0 0 L14 36 L28 0"/>
+        <path d="M60 1.3 H42 L54 18 L42 34.7 H60"/>
+        <path d="M75 0 V29 M80.5 34.7 H92"/>
+        <path d="M106 0 L120 36 L134 0"/>
+        <path d="M148 36 L162 0 L176 36"/>
+        <path d="M191 36 V1.3 L214 34.7 V0"/>
+        <path d="M247 1.3 H229 L241 18 L229 34.7 H247"/>
+        <path d="M236 -4.5 L242.5 -10.5"/>
+      </g>
+    </defs>
+  </svg>
 
   <!-- ===== Preloader ===== -->
   <div class="loader" aria-hidden="true">
@@ -35,9 +65,14 @@
     </div>
     <div class="loader__ui wrap">
       <div class="loader__top grid">
-        <span class="loader__brand">Vérelle<sup>®</sup></span>
+        <span class="loader__brand">Vérelle<sup>®</sup><i class="x">×</i><svg class="vmark" viewBox="-2 -12 251 50" role="img" aria-label="Velvané"><use href="#vmark"/></svg></span>
         <span class="loader__tag">Studio für Gestaltung</span>
         <span class="loader__city">Zürich, CH</span>
+      </div>
+      <div class="loader__lock" aria-hidden="true">
+        <span class="lock__word"><span>Vérelle</span><sup>®</sup></span>
+        <i class="lock__x">×</i>
+        <svg class="vmark lock__mark" viewBox="-2 -12 251 50" data-vdraw></svg>
       </div>
       <div class="loader__frame">
         <img src="https://images.unsplash.com/photo-1576831371356-d6e9411ae501?auto=format&fit=crop&w=640&h=800&q=80" alt="" decoding="async">
@@ -96,6 +131,9 @@
       <div class="menu__foot meta">
         <p>hello@verelle.studio<br>+41 44 000 00 00</p>
         <p>Limmatstrasse 214<br>8005 Zürich</p>
+        <a class="menu__credit" href="https://website-checker-lmdx.vercel.app/" target="_blank" rel="noopener">
+          <span>A</span><svg class="vmark vmark--sm" viewBox="-2 -12 251 50" role="img" aria-label="Velvané"><use href="#vmark"/></svg><span>production</span>
+        </a>
       </div>
     </div>
   </div>
@@ -106,6 +144,9 @@
     <!-- ===== Hero ===== -->
     <section class="hero">
       <div class="wrap grid hero__top">
+        <a class="hero__credit" href="https://website-checker-lmdx.vercel.app/" target="_blank" rel="noopener" data-hero-fade>
+          <i class="sq"></i><span>A</span><svg class="vmark vmark--sm" viewBox="-2 -12 251 50" role="img" aria-label="Velvané"><use href="#vmark"/></svg><span>production</span>
+        </a>
         <p class="hero__intro" data-hero-fade>
           An independent studio for identity, editorial and spatial design. We build visual systems with the clarity of the grid and the discipline of reduction.
         </p>
@@ -400,12 +441,23 @@
         </div>
       </div>
 
+      <div class="grid footer__credit">
+        <a class="credit__lock" href="https://website-checker-lmdx.vercel.app/" target="_blank" rel="noopener" aria-label="Vérelle × Velvané">
+          <span>Vérelle<sup>®</sup></span><i class="x">×</i><svg class="vmark" viewBox="-2 -12 251 50" aria-hidden="true"><use href="#vmark"/></svg>
+        </a>
+        <p class="credit__txt meta">Designed and built by Velvané.<br>One of ten design languages from the studio.</p>
+        <a class="credit__more ulink meta" href="https://website-checker-lmdx.vercel.app/" target="_blank" rel="noopener">More from Velvané ↗</a>
+      </div>
+
       <div class="footer__bottom meta">
-        <span>© 1998—2026 Vérelle GmbH</span>
+        <span>© 2026 Velvané. Vérelle® is a Velvané design language. All rights reserved.</span>
         <a href="#top" data-scroll-to class="ulink">Back to top ↑</a>
       </div>
     </div>
-    <div class="footer__giant" aria-hidden="true"><span class="giant__word">Vérelle</span><sup class="giant__reg">®</sup></div>
+    <div class="footer__giant" aria-hidden="true"><span class="giant__word">Vérelle</span><sup class="giant__reg"><span class="reg-a">®</span><span class="reg-b">×</span></sup></div>
+    <a class="footer__mark" href="https://website-checker-lmdx.vercel.app/" target="_blank" rel="noopener" aria-label="Velvané, the studio behind Vérelle">
+      <svg class="vmark" viewBox="-2 -12 251 50" data-vdraw aria-hidden="true"></svg>
+    </a>
   </footer>
   </div>
 

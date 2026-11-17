@@ -138,8 +138,23 @@ sup { font-size: 0.32em; vertical-align: top; position: relative; top: 0.25em; f
   padding-block: var(--pad);
 }
 .loader__top { font-size: 0.8125rem; font-weight: 500; align-items: baseline; }
-.loader__brand { grid-column: 1 / span 3; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.03em; }
+.loader__brand { grid-column: 1 / span 5; font-size: 1.05rem; font-weight: 700; letter-spacing: -0.03em; white-space: nowrap; }
 .loader__brand sup { font-size: 0.5em; font-weight: 500; margin-left: 1px; }
+.loader__brand .x { font-style: normal; font-weight: 400; color: var(--red); margin: 0 0.4em 0 0.3em; }
+
+/* Vérelle® × Velvané lock-up, drawn after the count reaches 100 */
+.loader__lock {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; align-items: baseline; gap: 0.22em;
+  font-size: clamp(2rem, 5.2vw, 5.5rem); font-weight: 800; letter-spacing: -0.06em; line-height: 1;
+  white-space: nowrap; visibility: hidden;
+}
+.lock__word { display: inline-flex; overflow: hidden; padding: 0.12em 0.04em 0.04em 0; }
+.lock__word > span { display: inline-block; }
+.lock__word sup { font-size: 0.3em; top: 0.3em; font-weight: 600; letter-spacing: 0; margin-left: 0.06em; display: inline-block; }
+.lock__x { font-style: normal; font-weight: 300; color: var(--red); display: inline-block; }
+.lock__mark { stroke-width: 2.6; }
 .loader__tag { grid-column: 6 / span 4; color: rgba(244, 243, 239, 0.55); }
 .loader__city { grid-column: 10 / span 3; justify-self: end; color: rgba(244, 243, 239, 0.55); }
 
@@ -169,9 +184,10 @@ sup { font-size: 0.32em; vertical-align: top; position: relative; top: 0.25em; f
 @media (max-width: 899px) {
   .loader__cols span:nth-child(n+5) { display: none; }
   .loader__tag { display: none; }
-  .loader__brand { grid-column: 1 / span 2; }
-  .loader__city { grid-column: 3 / span 2; }
+  .loader__brand { grid-column: 1 / -1; }
+  .loader__city { display: none; }
   .loader__frame { width: 46vw; top: 44%; }
+  .loader__lock { font-size: 8.2vw; top: 44%; }
 }
 
 /* ==========================================================================
@@ -258,12 +274,36 @@ body.show-grid .grid-overlay span { transform: scaleY(1); }
 .menu__nav a:last-child { border-bottom: 1px solid var(--line-inv); }
 .menu__n { font-size: 0.8125rem; color: var(--red); font-weight: 500; }
 .menu__t { font-size: clamp(3rem, 15vw, 6rem); font-weight: 700; letter-spacing: -0.055em; line-height: 0.95; display: inline-block; }
-.menu__foot { display: flex; justify-content: space-between; color: var(--grey); }
+.menu__foot { display: flex; flex-wrap: wrap; justify-content: space-between; row-gap: 22px; color: var(--grey); }
+.menu__credit {
+  flex-basis: 100%; display: flex; align-items: baseline; gap: 0.45em;
+  padding-top: 16px; border-top: 1px solid var(--line-inv); color: var(--paper);
+}
+
+/* ==========================================================================
+   Velvané wordmark (shared)
+   ========================================================================== */
+.vmark {
+  display: inline-block; height: 1em; width: 5.02em; /* viewBox 251 × 50 */
+  fill: none; stroke: currentColor; stroke-width: 2.9; stroke-miterlimit: 6;
+  overflow: visible; vertical-align: -0.04em; flex: none;
+}
+.vmark--sm { stroke-width: 3.8; }
+/* in baseline-aligned flex rows: letters sit 2/50 above the svg's bottom edge */
+.hero__credit .vmark, .menu__credit .vmark, .credit__lock .vmark, .loader__lock .vmark { margin-bottom: -0.04em; }
 
 /* ==========================================================================
    Hero
    ========================================================================== */
 .hero { padding-top: clamp(100px, 13vw, 170px); position: relative; }
+.hero__credit {
+  grid-column: 1 / span 4; align-self: start; justify-self: start;
+  display: inline-flex; align-items: baseline; gap: 0.45em;
+  font-size: 0.8125rem; font-weight: 500; letter-spacing: -0.005em;
+  transition: color 0.4s;
+}
+.hero__credit .sq { width: 0.62em; height: 0.62em; background: var(--red); align-self: center; margin-right: 0.2em; }
+@media (hover: hover) { .hero__credit:hover { color: var(--red); } }
 .hero__intro {
   grid-column: 8 / span 5;
   font-size: clamp(1.15rem, 1.65vw, 1.6rem); line-height: 1.15; font-weight: 500; letter-spacing: -0.025em;
@@ -492,19 +532,48 @@ body.show-grid .grid-overlay span { transform: scaleY(1); }
 .fcol { grid-column: span 3; line-height: 1.5; }
 .fcol .meta { margin-bottom: 10px; }
 .fcol--r { text-align: right; }
+/* Vérelle® × Velvané credit strip */
+.footer__credit {
+  margin-top: clamp(56px, 8vw, 120px); padding: 22px 0;
+  border-top: 1px solid var(--line-inv); align-items: center; row-gap: 14px;
+}
+.credit__lock {
+  grid-column: 1 / span 4; justify-self: start;
+  display: inline-flex; align-items: baseline;
+  font-size: clamp(1.3rem, 1.75vw, 1.75rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1;
+  color: var(--paper);
+}
+.credit__lock sup { font-size: 0.42em; font-weight: 500; letter-spacing: 0; margin-left: 0.04em; }
+.credit__lock .x { font-style: normal; font-weight: 300; color: var(--red); margin: 0 0.32em; }
+.credit__lock .vmark { transition: color 0.4s; }
+@media (hover: hover) { .credit__lock:hover .vmark { color: var(--red); } }
+.credit__txt { grid-column: 5 / span 5; color: var(--grey); }
+.credit__more { grid-column: 10 / span 3; justify-self: end; color: var(--paper); }
+
 .footer__bottom {
   display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
-  margin-top: clamp(56px, 8vw, 120px); padding: 18px 0; border-top: 1px solid var(--line-inv); color: var(--grey);
+  padding: 18px 0; border-top: 1px solid var(--line-inv); color: var(--grey);
 }
 .footer__bottom a { color: var(--paper); }
 .gchar, .char { display: inline-block; }
 .footer__giant {
   display: flex; align-items: flex-start; overflow: hidden;
   font-size: 29vw; font-weight: 800; letter-spacing: -0.07em; line-height: 0.74;
-  color: var(--paper); white-space: nowrap; padding-left: calc(var(--pad) * 0.6);
-  margin-bottom: -0.04em; margin-top: 10px;
+  color: var(--paper); white-space: nowrap;
+  padding-left: calc(var(--pad) * 0.6); padding-right: var(--pad);
+  margin-top: 10px;
 }
 .footer__giant sup { color: var(--red); font-size: 0.16em; top: 0.18em; font-weight: 600; letter-spacing: 0; }
+/* ® rolls into × when the Velvané mark arrives */
+.giant__reg { overflow: hidden; line-height: 1; }
+.giant__reg span { display: block; }
+.giant__reg .reg-b { position: absolute; left: 0; top: 0; width: 100%; text-align: center; }
+
+.footer__mark {
+  display: block; color: var(--paper);
+  padding: clamp(18px, 2.6vw, 44px) var(--pad) clamp(28px, 3.6vw, 56px) calc(var(--pad) * 0.6);
+}
+.footer__mark .vmark { display: block; width: 100%; height: auto; }
 
 /* ==========================================================================
    Responsive — tablet
@@ -598,6 +667,9 @@ body.show-grid .grid-overlay span { transform: scaleY(1); }
 
   .footer__note { grid-column: 1 / -1; }
   .footer__word { font-size: 15.5vw; }
+  .credit__lock, .credit__txt, .credit__more { grid-column: 1 / -1; }
+  .credit__more { justify-self: start; }
+  .hero__credit { grid-column: 1 / -1; margin-bottom: 18px; }
   .fcol { grid-column: span 2; }
   .footer__giant { font-size: 30vw; }
 }

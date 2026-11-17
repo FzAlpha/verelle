@@ -60,6 +60,25 @@
       box.style.fontSize = `${size}px`;
     }
   };
+  /* ------------------------------------------------------------------
+     Velvané wordmark: clone the line paths into each drawable <svg>
+     and hide every stroke behind its own dash so it can be drawn on
+     ------------------------------------------------------------------ */
+  const vSrc = document.getElementById("vmark");
+  const vdraw = $$("[data-vdraw]").map((svg) => {
+    const g = vSrc.cloneNode(true);
+    g.removeAttribute("id");
+    svg.appendChild(g);
+    const paths = [...g.querySelectorAll("path")];
+    paths.forEach((p) => {
+      const len = Math.ceil(p.getTotalLength()) + 2;
+      p.style.strokeDasharray = `${len} ${len}`;
+      p.style.strokeDashoffset = len;
+    });
+    return paths;
+  });
+  const [lockPaths, footPaths] = vdraw;
+
   const heroTitle = $(".hero__title");
   const giant = $(".footer__giant");
   const fitAll = () => {
@@ -353,9 +372,17 @@
         .to(".loader__digit span", { yPercent: -110, duration: 0.75, ease: "expo.in", stagger: 0.05 }, 0.3)
         .to(".loader__top > *", { autoAlpha: 0, y: -12, duration: 0.5, ease: "power2.in", stagger: 0.04 }, 0.3)
         .to(".loader__bar", { scaleX: 0, transformOrigin: "100% 50%", duration: 0.7, ease: "expo.in" }, 0.3)
-        .to(".loader__frame", { clipPath: "inset(0% 0% 100% 0%)", duration: 0.9, ease: "expo.inOut" }, 0.35)
-        .to(".loader__cols span", { yPercent: -100, duration: 1.15, ease: "expo.inOut", stagger: 0.045 }, 0.95)
-        .add(heroIn(), 1.25)
+        .to(".loader__frame", { clipPath: "inset(0% 0% 100% 0%)", duration: 0.9, ease: "expo.inOut" }, 0.3)
+        // Vérelle® × Velvané: the word rises, the × turns in, the mark draws itself
+        .set(".loader__lock", { visibility: "visible" }, 0.7)
+        .fromTo(".lock__word > *", { yPercent: 110 }, { yPercent: 0, duration: 0.9, ease: "expo.out", stagger: 0.06 }, 0.7)
+        .fromTo(".lock__x", { scale: 0, rotate: -90 }, { scale: 1, rotate: 0, duration: 0.8, ease: "expo.out" }, 0.85)
+        .to(lockPaths, { strokeDashoffset: 0, duration: 0.6, ease: "power2.inOut", stagger: 0.06 }, 0.95)
+        .fromTo(".loader__lock",
+          { clipPath: "inset(-30% -5% -30% -5%)" },
+          { clipPath: "inset(-30% -5% 130% -5%)", duration: 0.75, ease: "expo.inOut" }, 2.2)
+        .to(".loader__cols span", { yPercent: -100, duration: 1.15, ease: "expo.inOut", stagger: 0.045 }, 2.3)
+        .add(heroIn(), 2.6)
         .set(".loader", { display: "none" });
     };
 
@@ -477,6 +504,18 @@
       scrollTrigger: { trigger: giant, start: "top bottom", end: "bottom bottom", scrub: 0.8 },
     });
 
+    // Vérelle® becomes Vérelle × — and the Velvané mark draws itself beneath
+    gsap.set(".giant__reg .reg-b", { yPercent: 110 });
+    gsap.timeline({
+      scrollTrigger: { trigger: ".footer__mark", start: "top 85%", toggleActions: "play none none reverse" },
+    })
+      .to(".giant__reg .reg-a", { yPercent: -110, duration: 0.8, ease: "expo.inOut" }, 0)
+      .to(".giant__reg .reg-b", { yPercent: 0, duration: 0.8, ease: "expo.inOut" }, 0.08);
+    gsap.to(footPaths, {
+      strokeDashoffset: 0, ease: "none", stagger: 0.12,
+      scrollTrigger: { trigger: ".footer__mark", start: "top 92%", end: "bottom bottom", scrub: 0.8 },
+    });
+
     // Breakpoint-specific scenes
     const mm = gsap.matchMedia();
 
@@ -543,6 +582,16 @@
   });
 
   window.addEventListener("load", () => ScrollTrigger.refresh());
+
+  // Signature
+  console.log(
+    "%cVérelle® × Velvané",
+    "font: 800 22px 'Inter Tight', Helvetica, sans-serif; letter-spacing: -0.04em; color: #0b0b0b; background: #f4f3ef; padding: 10px 14px; border-left: 6px solid #e4002b;"
+  );
+  console.log(
+    "%cA Swiss design language by Velvané · https://website-checker-lmdx.vercel.app/\n© 2026 Velvané. All rights reserved.",
+    "font: 500 12px 'Inter Tight', Helvetica, sans-serif; color: #77766f; line-height: 1.6;"
+  );
 
   let rw = window.innerWidth;
   window.addEventListener("resize", () => {
